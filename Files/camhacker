@@ -1,0 +1,12 @@
+NAME=camhacker
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+REPODIR=$SCRIPTPATH/../Repos/$NAME
+DOCKERFILE=$REPODIR/../../Files/Dockerfiles/$NAME
+echo $DOCKERFILE
+git clone https://github.com/AngelSecurityTeam/Cam-Hackers $REPODIR
+rm $REPODIR/Dockerfile
+touch $REPODIR/Dockerfile
+cat  $DOCKERFILE >> $REPODIR/Dockerfile
+docker build -t $NAME $REPODIR
+clear
+docker run -it --rm --name $NAME $NAME:latest
